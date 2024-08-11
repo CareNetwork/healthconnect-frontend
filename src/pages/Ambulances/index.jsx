@@ -1,7 +1,13 @@
-const AmbulanceService = () => {
-  return (
-    <div>AmbulanceService</div>
-  )
-}
+import Layout from "../../components/Layouts/Layout";
+import AmbulanceList from '../../components/Ambulance/AmbulanceList';
 
-export default AmbulanceService
+const Ambulances = () => {
+  return (
+    <Layout>
+      <h1>Ambulance Services</h1>
+      <AmbulanceList />
+    </Layout>
+  );
+};
+
+export default Ambulances;

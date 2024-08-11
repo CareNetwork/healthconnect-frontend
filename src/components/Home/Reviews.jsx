@@ -2,7 +2,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination, Autoplay } from 'swiper';
+// import { Pagination, Autoplay } from 'swiper';
 
 const reviews = [
   { id: 1, name: 'Kwame A.', content: 'Health Connect Ghana helped me find the right specialist quickly. Great service!' },
@@ -16,7 +16,7 @@ const Reviews = () => {
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-8 text-center">What Our Users Say</h2>
         <Swiper
-          modules={[Pagination, Autoplay]}
+          modules={[]}
           spaceBetween={30}
           slidesPerView={1}
           pagination={{ clickable: true }}
