@@ -1,35 +1,38 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import AboutUs from './pages/AboutUs';
-import Hospitals from './pages/Hospitals';
-import AmbulanceService from './pages/AmbulanceService';
-import ContactUs from './pages/ContactUs';
-import Signup from './pages/Auth/signup';
-import Login from './pages/Auth/login';
 
-const App = () => {
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layouts/Layout';
+import Home from './pages/Home';
+import Hospitals from './pages/Hospitals';
+import Ambulances from './pages/Ambulances';
+import HospitalDetail from './pages/HospitalDetail';
+import Admin from './pages/Admin';
+import AdminLogin from './components/Admin/AdminLogin';
+import AdminSignUp from './components/Admin/AdminSignup';
+// import ProtectedRoute from './components/ProtectedRoute';
+
+function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/hospitals" element={<Hospitals />} />
-            <Route path="/ambulance-services" element={<AmbulanceService />} />
-            <Route path="/contact" element={<ContactUs />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/hospitals" element={<Hospitals />} />
+          <Route path="/hospitals/:id" element={<HospitalDetail />} />
+          <Route path="/ambulances" element={<Ambulances />} />
+          <Route path="/admin/signup" element={<AdminSignUp />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route 
+            path="/admin/dashboard" 
+            element={
+              // <ProtectedRoute>
+                <Admin />
+              // </ProtectedRoute>
+            } 
+          />
+        </Routes>
+      </Layout>
     </Router>
   );
-};
+}
 
 export default App;
-
