@@ -8,7 +8,9 @@ const HospitalCard = ({ hospital }) => {
       <div className="p-4">
         <h3 className="text-xl font-semibold mb-2">{hospital.name}</h3>
         <p className="text-gray-600 mb-2">{hospital.location}</p>
-        <p className="text-sm text-gray-500 mb-4">{hospital.specialties.join(', ')}</p>
+        <p className="text-sm text-gray-500 mb-4">
+          {hospital.specialties ? hospital.specialties.join(', ') : 'No specialties available'}
+        </p>
         <Link 
           to={`/hospitals/${hospital.id}`}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"

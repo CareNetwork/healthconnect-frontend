@@ -1,4 +1,3 @@
-
 import Hero from '../../components/Home/Hero';
 import BestHospitals from '../../components/Home/BestHospitals';
 import GetStarted from '../../components/Home/GetStarted';

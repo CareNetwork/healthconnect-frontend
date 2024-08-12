@@ -1,13 +1,11 @@
-// 
 import { useState } from 'react';
-import Layout from '../../components/Layouts/Layout';
 import AdminDashboard from '../../components/Admin/AdminDashboard';
 import AdminLogin from '../../components/Admin/AdminLogin';
-import AdminSignUp from '../../components/Admin/AdminSignup';  // Import the AdminSignup component
+import AdminSignUp from '../../components/Admin/AdminSignup';
 
 const Admin = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);  // Assume initially not authenticated
-  const [isSigningUp, setIsSigningUp] = useState(false);  // Track if the user is signing up
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isSigningUp, setIsSigningUp] = useState(false);
 
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
@@ -18,7 +16,7 @@ const Admin = () => {
   };
 
   return (
-    <Layout>
+    <>
       <h1>Admin</h1>
       {isAuthenticated ? (
         <AdminDashboard />
@@ -27,7 +25,7 @@ const Admin = () => {
       ) : (
         <AdminLogin onLoginSuccess={handleLoginSuccess} onToggleSignUp={handleToggleSignUp} />
       )}
-    </Layout>
+    </>
   );
 };
 
