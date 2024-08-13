@@ -15,8 +15,10 @@ const Layout = ({ children }) => {
           <Link to="/" className="text-2xl font-bold">Health Connect</Link>
           <nav className="hidden md:flex space-x-4">
             <Link to="/" className="hover:text-blue-200 transition duration-300">Home</Link>
-            <Link to="/hospitals" className="hover:text-blue-200 transition duration-300">Hospitals</Link>
-            <Link to="/ambulances" className="hover:text-blue-200 transition duration-300">Ambulances</Link>
+            <Link to="/hospitals" className="hover:text-blue-200 transition duration-300">Find Hospital</Link>
+            <Link to="/ambulances" className="hover:text-blue-200 transition duration-300">Find Ambulance</Link>
+            <Link to="/signup" className="hover:text-blue-200 transition duration-300">Sign Up</Link>
+            <Link to="/signin" className="hover:text-blue-200 transition duration-300">Login</Link>
           </nav>
           <button onClick={toggleMenu} className="md:hidden">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -32,8 +34,10 @@ const Layout = ({ children }) => {
             className="md:hidden"
           >
             <Link to="/" className="block py-2 px-4 hover:bg-blue-700">Home</Link>
-            <Link to="/hospitals" className="block py-2 px-4 hover:bg-blue-700">Hospitals</Link>
-            <Link to="/ambulances" className="block py-2 px-4 hover:bg-blue-700">Ambulances</Link>
+            <Link to="/hospitals" className="block py-2 px-4 hover:bg-blue-700">Find Hospital</Link>
+            <Link to="/ambulances" className="block py-2 px-4 hover:bg-blue-700">Find Ambulance</Link>
+            <Link to="/signup" className="block py-2 px-4 hover:bg-blue-700">Sign Up</Link>
+            <Link to="/signin" className="block py-2 px-4 hover:bg-blue-700">Login</Link>
           </motion.div>
         )}
       </header>
@@ -53,8 +57,10 @@ const Layout = ({ children }) => {
               <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
               <ul>
                 <li><Link to="/" className="hover:text-blue-300 transition duration-300">Home</Link></li>
-                <li><Link to="/hospitals" className="hover:text-blue-300 transition duration-300">Hospitals</Link></li>
-                <li><Link to="/ambulances" className="hover:text-blue-300 transition duration-300">Ambulances</Link></li>
+                <li><Link to="/hospitals" className="hover:text-blue-300 transition duration-300">Find Hospital</Link></li>
+                <li><Link to="/ambulances" className="hover:text-blue-300 transition duration-300">Find Ambulance</Link></li>
+                <li><Link to="/signup" className="hover:text-blue-300 transition duration-300">Sign Up</Link></li>
+                <li><Link to="/signin" className="hover:text-blue-300 transition duration-300">Login</Link></li>
               </ul>
             </div>
             <div className="w-full md:w-1/3">

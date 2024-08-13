@@ -1,8 +1,7 @@
-// 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AmbulanceForm from './AdminLogin';
 import HospitalForm from './HospitalForm';
+import AmbulanceForm from './AmbulanceForm';
 
 const mockHospitals = [
   { id: 1, name: 'Korle-Bu Teaching Hospital', location: 'Accra', specialty: 'General' },
@@ -27,7 +26,16 @@ const AdminDashboard = () => {
     // logoutAdmin();
     navigate('/');
   };
-  
+
+  const handleAddHospital = (newHospital) => {
+    setHospitals([...hospitals, { ...newHospital, id: hospitals.length + 1 }]);
+    setShowHospitalForm(false);
+  };
+
+  const handleAddAmbulance = (newAmbulance) => {
+    setAmbulances([...ambulances, { ...newAmbulance, id: ambulances.length + 1 }]);
+    setShowAmbulanceForm(false);
+  };
 
   const handleDeleteHospital = (id) => {
     setHospitals(hospitals.filter(hospital => hospital.id !== id));
@@ -93,6 +101,14 @@ const AdminDashboard = () => {
       </ul>
 
       <h2 className="text-2xl font-semibold mb-4 mt-8">Ambulances</h2>
+      <button
+        onClick={() => setShowAmbulanceForm(!showAmbulanceForm)}
+        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+      >
+        {showAmbulanceForm ? 'Hide Form' : 'Add New Ambulance'}
+      </button>
+
+      {showAmbulanceForm && <AmbulanceForm onAddAmbulance={handleAddAmbulance} />}
       <ul>
         {ambulances.map(ambulance => (
           <li key={ambulance.id} className="mb-4">

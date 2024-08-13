@@ -8,6 +8,8 @@ import HospitalDetail from './pages/HospitalDetail';
 import Admin from './pages/Admin';
 import AdminLogin from './components/Admin/AdminLogin';
 import AdminSignUp from './components/Admin/AdminSignup';
+import Login from './components/Auth/Login';
+import Signup from './components/Auth/Signup';
 // import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
           <Route path="/ambulances" element={<Ambulances />} />
           <Route path="/admin/signup" element={<AdminSignUp />} />
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login/>} />
           <Route 
             path="/admin/dashboard" 
             element={

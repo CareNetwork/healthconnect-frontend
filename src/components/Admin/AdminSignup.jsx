@@ -88,6 +88,50 @@ const AdminSignUp = () => {
                             />
                             {errors.firstName && <span className="text-red-500">{errors.firstName.message}</span>}
                         </div>
+                        <div>
+                            <label htmlFor="lastName" className="block mb-1">Last Name</label>
+                            <input
+                                type="text"
+                                id="lastName"
+                                {...register("lasstName", { required: "last name is required" })}
+                                className="w-full p-2 border rounded"
+                                placeholder="Enter last name"
+                            />
+                            {errors.lastName && <span className="text-red-500">{errors.lastName.message}</span>}
+                        </div>
+                        <div>
+                            <label htmlFor="userName" className="block mb-1">Username</label>
+                            <input
+                                type="text"
+                                id="username"
+                                {...register("username", { required: "username is required" })}
+                                className="w-full p-2 border rounded"
+                                placeholder="Enter username"
+                            />
+                            {errors.username && <span className="text-red-500">{errors.username.message}</span>}
+                        </div>
+                        <div>
+                            <label htmlFor="emailAddress" className="block mb-1">Email Address</label>
+                            <input
+                                type="text"
+                                id="emailAddress"
+                                {...register("emailAddress", { required: "Email Address is required" })}
+                                className="w-full p-2 border rounded"
+                                placeholder="Enter first name"
+                            />
+                            {errors.emailAddress && <span className="text-red-500">{errors.emailAddress.message}</span>}
+                        </div>
+                        <div>
+                            <label htmlFor="password" className="block mb-1">Password</label>
+                            <input
+                                type="text"
+                                id="password"
+                                {...register("password", { required: "Password is required" })}
+                                className="w-full p-2 border rounded"
+                                placeholder="Enter password"
+                            />
+                            {errors.password && <span className="text-red-500">{errors.password.message}</span>}
+                        </div>
                         
                         {/* Add similar input fields for surname, otherNames, username, emailAddress, and password */}
                         
