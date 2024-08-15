@@ -1,12 +1,11 @@
+// 
 import { useState } from 'react';
 import { UserPenIcon } from "lucide-react";
-// import { signUp } from '../../assets/images';
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-// import { apiSignUp } from '../../services/api'; // Adjust the path as needed
-import Loader from '../Loader'; // Adjust the path as needed
+import Loader from "../Loader"; // Adjust the path as needed
 
 const AdminSignUp = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -18,7 +17,7 @@ const AdminSignUp = () => {
         setIsSubmitting(true);
         let payload = {
             firstName: data.firstName,
-            lastName: data.surname,
+            lastName: data.lastName,
             userName: data.username,
             password: data.password,
             email: data.emailAddress,
@@ -28,10 +27,22 @@ const AdminSignUp = () => {
         if (data.otherNames) {
             payload = { ...payload, otherNames: data.otherNames };
         }
+
         try {
-            const res = await (payload);
-            console.log(res.data);
-            toast.success(res.data);
+            const response = await fetch('/api/v1/admin/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to sign up');
+            }
+
+            const resData = await response.json();
+            toast.success(resData.message || "Account created successfully!");
             setTimeout(() => {
                 navigate("/admin/login");
             }, 3000);
@@ -93,7 +104,7 @@ const AdminSignUp = () => {
                             <input
                                 type="text"
                                 id="lastName"
-                                {...register("lasstName", { required: "last name is required" })}
+                                {...register("lastName", { required: "Last name is required" })}
                                 className="w-full p-2 border rounded"
                                 placeholder="Enter last name"
                             />
@@ -104,7 +115,7 @@ const AdminSignUp = () => {
                             <input
                                 type="text"
                                 id="username"
-                                {...register("username", { required: "username is required" })}
+                                {...register("username", { required: "Username is required" })}
                                 className="w-full p-2 border rounded"
                                 placeholder="Enter username"
                             />
@@ -113,18 +124,18 @@ const AdminSignUp = () => {
                         <div>
                             <label htmlFor="emailAddress" className="block mb-1">Email Address</label>
                             <input
-                                type="text"
+                                type="email"
                                 id="emailAddress"
                                 {...register("emailAddress", { required: "Email Address is required" })}
                                 className="w-full p-2 border rounded"
-                                placeholder="Enter first name"
+                                placeholder="Enter email address"
                             />
                             {errors.emailAddress && <span className="text-red-500">{errors.emailAddress.message}</span>}
                         </div>
                         <div>
                             <label htmlFor="password" className="block mb-1">Password</label>
                             <input
-                                type="text"
+                                type="password"
                                 id="password"
                                 {...register("password", { required: "Password is required" })}
                                 className="w-full p-2 border rounded"
@@ -132,14 +143,13 @@ const AdminSignUp = () => {
                             />
                             {errors.password && <span className="text-red-500">{errors.password.message}</span>}
                         </div>
-                        
-                        {/* Add similar input fields for surname, otherNames, username, emailAddress, and password */}
-                        
+
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             type="submit"
                             className="w-full bg-gradient-to-r from-gray-700 to-black text-white font-bold py-2 px-4 rounded-md hover:opacity-90 transition duration-300 flex items-center justify-center"
+                            disabled={isSubmitting}
                         >
                             <span>{isSubmitting ? <Loader /> : "Sign Up"}</span>
                             <UserPenIcon className="ml-2 h-5 w-5" />

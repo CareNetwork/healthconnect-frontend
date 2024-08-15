@@ -20,7 +20,13 @@ import AmbulanceForm from './components/Admin/AmbulanceForm';
 import AdminAnalytics from './components/Admin/AdminAnalytics';
 import AdminSettings from './components/Admin/AdminSettings';
 
+// Define the handleAmbulanceSubmit function
+function handleAmbulanceSubmit(formData) {
+  console.log("Ambulance Form Submitted", formData);
+  // Here you can add logic to send the form data to your backend or perform other actions.
+}
 function App() {
+  
   return (
     <Router>
       <Routes>
@@ -31,7 +37,7 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />}>
           <Route path="overview" element={<Overview />} />
           <Route path="hospital-form" element={<HospitalForm />} />
-          <Route path="ambulance-form" element={<AmbulanceForm />} />
+          <Route path="ambulance-form" element={<AmbulanceForm onSubmit={handleAmbulanceSubmit} />} />
           <Route path="analytics" element={<AdminAnalytics />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>

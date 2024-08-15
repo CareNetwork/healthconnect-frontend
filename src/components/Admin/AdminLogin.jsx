@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { loginAdmin } from '../../services/auth';
 
 const AdminLogin = () => {
   const [username, setUsername] = useState('');
@@ -10,11 +9,28 @@ const AdminLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(''); // Reset error message
+
     try {
-      await (username, password);
+      const response = await fetch('/api/v1/admin/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Invalid credentials');
+      }
+
+      const data = await response.json();
+      // Assuming the token is in the data object
+      localStorage.setItem('adminToken', data.token);
+      
       navigate('/admin/dashboard');
     } catch (err) {
-      setError('Invalid credentials');
+      setError(err.message || 'An error occurred. Please try again.');
     }
   };
 
@@ -43,7 +59,7 @@ const AdminLogin = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-              </div>
+            </div>
             <div>
               <label htmlFor="password" className="sr-only">
                 Password
