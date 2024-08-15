@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-// eslint-disable-next-line react/prop-types
-const Layout = ({ children }) => {
+const Layout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -17,8 +16,7 @@ const Layout = ({ children }) => {
             <Link to="/" className="hover:text-blue-200 transition duration-300">Home</Link>
             <Link to="/hospitals" className="hover:text-blue-200 transition duration-300">Find Hospital</Link>
             <Link to="/ambulances" className="hover:text-blue-200 transition duration-300">Find Ambulance</Link>
-            <Link to="/signup" className="hover:text-blue-200 transition duration-300">Sign Up</Link>
-            <Link to="/signin" className="hover:text-blue-200 transition duration-300">Login</Link>
+            <Link to="/login" className="hover:text-blue-200 transition duration-300">Login</Link>
           </nav>
           <button onClick={toggleMenu} className="md:hidden">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -36,14 +34,13 @@ const Layout = ({ children }) => {
             <Link to="/" className="block py-2 px-4 hover:bg-blue-700">Home</Link>
             <Link to="/hospitals" className="block py-2 px-4 hover:bg-blue-700">Find Hospital</Link>
             <Link to="/ambulances" className="block py-2 px-4 hover:bg-blue-700">Find Ambulance</Link>
-            <Link to="/signup" className="block py-2 px-4 hover:bg-blue-700">Sign Up</Link>
             <Link to="/signin" className="block py-2 px-4 hover:bg-blue-700">Login</Link>
           </motion.div>
         )}
       </header>
 
       <main className="flex-grow container mx-auto px-4 py-8">
-        {children}
+        <Outlet /> {/* This is where the child routes will render */}
       </main>
 
       <footer className="bg-gray-800 text-white">
@@ -59,7 +56,6 @@ const Layout = ({ children }) => {
                 <li><Link to="/" className="hover:text-blue-300 transition duration-300">Home</Link></li>
                 <li><Link to="/hospitals" className="hover:text-blue-300 transition duration-300">Find Hospital</Link></li>
                 <li><Link to="/ambulances" className="hover:text-blue-300 transition duration-300">Find Ambulance</Link></li>
-                <li><Link to="/signup" className="hover:text-blue-300 transition duration-300">Sign Up</Link></li>
                 <li><Link to="/signin" className="hover:text-blue-300 transition duration-300">Login</Link></li>
               </ul>
             </div>
