@@ -8,6 +8,9 @@ import vidBg4 from '../images/vidBg4.mp4'
 import heroBg from '../images/heroBg.jpg'
 import aboutBg from '../images/aboutBg.png'
 import nurse from '../images/nurse.jpg'
+import covid from '../images/covid.jpg'
+import nhis from '../images/nhis.png'
+import maternity from '../images/maternity.jpg'
 
 
-export {signUp, landingBg, vidBg, vidBg1, vidBg2, vidBg3,vidBg4, heroBg, aboutBg, nurse}
+export {signUp, landingBg, vidBg, vidBg1, vidBg2, vidBg3,vidBg4, heroBg, aboutBg, nurse, covid, nhis, maternity}

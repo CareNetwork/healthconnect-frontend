@@ -19,7 +19,7 @@ const Hero = () => {
         className="absolute inset-0"
       >
         <img
-          src= {heroBg}
+          src={heroBg}
           alt="Health Connect Background"
           className="w-full h-full object-cover"
         />
@@ -68,6 +68,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
         transition={{ duration: 1, delay: 1.2 }}
+        style={{ left: '58%', marginLeft: '-150px' }} // Adjust this value as needed
       >
         <span className="mb-2">Scroll to explore</span>
         <motion.div

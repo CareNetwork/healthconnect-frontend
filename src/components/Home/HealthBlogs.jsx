@@ -1,20 +1,27 @@
-
-import { Link } from 'react-router-dom';
+import { maternity, covid, nhis } from '../../assets/images';
 
 const blogs = [
   {
     id: 1,
     title: 'Understanding NHIS: Your Guide to the National Health Insurance Scheme in Ghana',
     excerpt: 'Learn about the National Health Insurance Scheme and how it benefits you.',
-    image: '/assets/images/nhis-blog.jpg'
+    image: nhis,
+    url: 'https://www.nhis.gov.gh/news'
   },
   {
     id: 2,
     title: 'COVID-19 Update: Current Situation in Ghana',
     excerpt: 'Stay informed about the latest COVID-19 developments and safety measures.',
-    image: '/assets/images/covid-update.jpg'
+    image: covid,
+    url: 'https://www.african-review.com/blog-details.php?id=17'
   },
-  // Add more blog posts
+  {
+    id: 3,
+    title: 'Maternity Service Agenda',
+    excerpt: 'GMH’s newest ground-breaking initiative is poised to strengthen maternal and newborn care in northern Ghana.',
+    image: maternity,
+     url: 'https://ghanamedicalhelp.com/maternity-service-agenda/'
+  },
 ];
 
 const HealthBlogs = () => {
@@ -29,9 +36,14 @@ const HealthBlogs = () => {
               <div className="p-4">
                 <h3 className="font-semibold text-lg mb-2">{blog.title}</h3>
                 <p className="text-gray-600 mb-4">{blog.excerpt}</p>
-                <Link to={`/blog/${blog.id}`} className="text-blue-500 font-semibold hover:underline">
+                <a 
+                  href={blog.url}
+                  className="text-blue-500 font-semibold hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Read More
-                </Link>
+                </a>
               </div>
             </div>
           ))}
