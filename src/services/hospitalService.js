@@ -1,18 +1,13 @@
-// src/services/hospitalService.js
-import api from './api';  // import the axios instance
+import { apiClient } from "./config";
 
-export const fetchHospitals = async () => {
-  return api.get('/hospitals');
-};
-
-export const fetchHospitalById = async (id) => {
-  return api.get(`/hospitals/${id}`);
-};
-
-export const createHospital = async (hospitalData) => {
-  return api.post('/hospitals', hospitalData);
-};
-
-export const updateHospital = async (id, hospitalData) => {
-  return api.patch(`/hospitals/${id}`, hospitalData);
+export const fetchHospitals = async (filters) => {
+    try {
+        const response = await apiClient.get('/hospitals', {
+            params: filters, // This will send the filters as query parameters
+        });
+        return response;
+    } catch (error) {
+        console.error('Error fetching hospitals:', error);
+        throw error;
+    }
 };

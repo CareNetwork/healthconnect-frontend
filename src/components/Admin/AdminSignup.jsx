@@ -55,107 +55,104 @@ const AdminSignUp = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-800 to-black flex items-center justify-center p-4">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 py-12 px-4 sm:px-6 lg:px-8">
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-white rounded-2xl shadow-2xl flex flex-col md:flex-row w-full max-w-6xl overflow-hidden"
+                className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-2xl"
             >
-                {/* Image section remains unchanged */}
-                <div className="w-full md:w-1/2 p-8 bg-gray-100">
-                    <motion.h2
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                        className="text-3xl font-bold text-gray-800 mb-2 text-center"
-                    >
+                <div>
+                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
                         Admin Sign Up
-                    </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4, duration: 0.5 }}
-                        className="text-gray-600 mb-6 text-center"
-                    >
+                    </h2>
+                    <p className="mt-2 text-center text-sm text-gray-600">
                         Create your admin account below
-                    </motion.p>
-
-                    <motion.form
-                        onSubmit={handleSubmit(onSubmit)}
-                        className="space-y-4"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.6, duration: 0.5 }}
-                    >
+                    </p>
+                </div>
+                <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+                    <input type="hidden" name="remember" defaultValue="true" />
+                    <div className="rounded-md shadow-sm -space-y-px">
                         <div>
-                            <label htmlFor="firstName" className="block mb-1">First Name</label>
+                            <label htmlFor="firstName" className="sr-only">First Name</label>
                             <input
-                                type="text"
                                 id="firstName"
                                 {...register("firstName", { required: "First name is required" })}
-                                className="w-full p-2 border rounded"
-                                placeholder="Enter first name"
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="First Name"
                             />
-                            {errors.firstName && <span className="text-red-500">{errors.firstName.message}</span>}
                         </div>
                         <div>
-                            <label htmlFor="lastName" className="block mb-1">Last Name</label>
+                            <label htmlFor="lastName" className="sr-only">Last Name</label>
                             <input
-                                type="text"
                                 id="lastName"
                                 {...register("lastName", { required: "Last name is required" })}
-                                className="w-full p-2 border rounded"
-                                placeholder="Enter last name"
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Last Name"
                             />
-                            {errors.lastName && <span className="text-red-500">{errors.lastName.message}</span>}
                         </div>
                         <div>
-                            <label htmlFor="userName" className="block mb-1">Username</label>
+                            <label htmlFor="username" className="sr-only">Username</label>
                             <input
-                                type="text"
                                 id="username"
                                 {...register("username", { required: "Username is required" })}
-                                className="w-full p-2 border rounded"
-                                placeholder="Enter username"
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Username"
                             />
-                            {errors.username && <span className="text-red-500">{errors.username.message}</span>}
                         </div>
                         <div>
-                            <label htmlFor="emailAddress" className="block mb-1">Email Address</label>
+                            <label htmlFor="emailAddress" className="sr-only">Email Address</label>
                             <input
-                                type="email"
                                 id="emailAddress"
+                                type="email"
                                 {...register("emailAddress", { required: "Email Address is required" })}
-                                className="w-full p-2 border rounded"
-                                placeholder="Enter email address"
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Email Address"
                             />
-                            {errors.emailAddress && <span className="text-red-500">{errors.emailAddress.message}</span>}
                         </div>
                         <div>
-                            <label htmlFor="password" className="block mb-1">Password</label>
+                            <label htmlFor="password" className="sr-only">Password</label>
                             <input
-                                type="password"
                                 id="password"
+                                type="password"
                                 {...register("password", { required: "Password is required" })}
-                                className="w-full p-2 border rounded"
-                                placeholder="Enter password"
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Password"
                             />
-                            {errors.password && <span className="text-red-500">{errors.password.message}</span>}
                         </div>
+                    </div>
 
+                    {Object.keys(errors).length > 0 && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-red-500 text-sm"
+                        >
+                            {Object.values(errors).map((error, index) => (
+                                <p key={index}>{error.message}</p>
+                            ))}
+                        </motion.div>
+                    )}
+
+                    <div>
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             type="submit"
-                            className="w-full bg-gradient-to-r from-gray-700 to-black text-white font-bold py-2 px-4 rounded-md hover:opacity-90 transition duration-300 flex items-center justify-center"
+                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
                             disabled={isSubmitting}
                         >
-                            <span>{isSubmitting ? <Loader /> : "Sign Up"}</span>
-                            <UserPenIcon className="ml-2 h-5 w-5" />
+                            {isSubmitting ? <Loader /> : (
+                                <>
+                                    <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                                        <UserPenIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
+                                    </span>
+                                    Sign Up
+                                </>
+                            )}
                         </motion.button>
-                    </motion.form>
-                </div>
+                    </div>
+                </form>
             </motion.div>
         </div>
     );

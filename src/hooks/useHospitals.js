@@ -1,39 +1,30 @@
 import { useState, useEffect } from 'react';
-
-const mockHospitals = [
-  { id: 1, name: 'Korle-Bu Teaching Hospital', location: 'Accra', specialty: 'General' },
-  { id: 2, name: 'Komfo Anokye Teaching Hospital', location: 'Kumasi', specialty: 'General' },
-  { id: 3, name: 'Tamale Teaching Hospital', location: 'Tamale', specialty: 'General' },
-  { id: 4, name: 'Cape Coast Teaching Hospital', location: 'Cape Coast', specialty: 'General' },
-  // Add more mock data
-];
+import { fetchHospitals } from '../services/hospitalService'; // Ensure the correct path to the service file
 
 const useHospitals = () => {
   const [hospitals, setHospitals] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({
+    region: '',
+    specialty: '',
+    type: ''
+  });
 
   useEffect(() => {
-    const fetchHospitals = async () => {
+    const loadHospitals = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
-        // Simulate fetching data from an API
-        setTimeout(() => {
-          const filteredHospitals = mockHospitals.filter(hospital => 
-            (!filters.location || hospital.location === filters.location) &&
-            (!filters.specialty || hospital.specialty === filters.specialty)
-          );
-          setHospitals(filteredHospitals);
-          setLoading(false);
-        }, 1000);
+        const response = await fetchHospitals(filters);
+        setHospitals(response.data);
       } catch (err) {
         setError(err.message);
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchHospitals();
+    loadHospitals();
   }, [filters]);
 
   return { hospitals, loading, error, filters, setFilters };

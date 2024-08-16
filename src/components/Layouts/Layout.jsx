@@ -22,7 +22,7 @@ const Layout = () => {
           scrolled ? "bg-white shadow-lg" : "bg-transparent"
         }`}
       >
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <Link
             to="/"
             className={`text-2xl font-bold ${
@@ -31,27 +31,27 @@ const Layout = () => {
           >
             Health Connect
           </Link>
-          <nav className="hidden md:flex space-x-6">
+          <nav className="hidden md:flex space-x-8">
             {["Home", "Hospitals", "Ambulances"].map((item) => (
               <Link
                 key={item}
                 to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
                 className={`text-sm font-medium ${
                   scrolled ? "text-gray-700" : "text-white"
-                } hover:text-blue-500 transition duration-300`}
+                } hover:text-cyan-800 transition duration-300`}
               >
                 {item}
               </Link>
             ))}
+            <Link
+              to="/login"
+              className={`px-4 py-2 rounded-full ${
+                scrolled ? "bg-cyan-700 text-white" : "bg-white text-cyan-500"
+              } hover:bg-opacity-90 transition duration-300`}
+            >
+              Login Portal
+            </Link>
           </nav>
-          <Link
-            to="/login"
-            className={`px-4 py-2 rounded-full ${
-              scrolled ? "bg-blue-500 text-white" : "bg-white text-blue-500"
-            } hover:bg-opacity-90 transition duration-300`}
-          >
-            Login Portal
-          </Link>
           <button onClick={toggleMenu} className="md:hidden text-white">
             <svg
               className="w-6 h-6"
@@ -91,15 +91,13 @@ const Layout = () => {
       </header>
 
       <main className="flex-grow">
-        {/* <Hero /> Place the Hero component here */}
-        <div className="container mx-auto px-4 py-8">
-          <ScrollAnimationWrapper>
-          <Outlet /> {/* This is where the child routes will render */}
-          </ScrollAnimationWrapper>
-        </div>
+        <ScrollAnimationWrapper>
+          <Outlet />
+        </ScrollAnimationWrapper>
       </main>
 
-      <footer className="bg-gray-900 text-white py-12">
+      
+      <footer className="bg-cyan-900 text-white py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
@@ -129,10 +127,11 @@ const Layout = () => {
               <p className="text-gray-400">Phone: +233 123 456 789</p>
             </div>
           </div>
-          <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
+          <div className="mt-12 pt-8 border-t border-cyan-800 text-center text-gray-400">
             <p>&copy; 2024 Health Connect. All rights reserved.</p>
           </div>
         </div>
+      
       </footer>
     </div>
   );

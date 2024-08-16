@@ -1,8 +1,6 @@
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-// import { Pagination, Autoplay } from 'swiper';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const reviews = [
   { id: 1, name: 'Kwame A.', content: 'Health Connect Ghana helped me find the right specialist quickly. Great service!' },
@@ -11,26 +9,36 @@ const reviews = [
 ];
 
 const Reviews = () => {
+  const [currentReview, setCurrentReview] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentReview((prevReview) => (prevReview + 1) % reviews.length);
+    }, 5000); // Adjust the timing as needed
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="bg-white py-16">
+    <div className="bg-cyan-900 py-16 text-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 text-center">What Our Users Say</h2>
-        <Swiper
-          modules={[]}
-          spaceBetween={30}
-          slidesPerView={1}
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 5000 }}
-        >
-          {reviews.map((review) => (
-            <SwiperSlide key={review.id}>
-              <div className="bg-gray-100 p-8 rounded-lg">
-                <p className="text-lg mb-4">{review.content}</p>
-                <p className="font-semibold">- {review.name}</p>
+        <h2 className="text-3xl font-bold mb-8 text-center text-cyan-100">What Our Users Say</h2>
+        <div className="relative">
+          <AnimatePresence>
+            <motion.div
+              key={reviews[currentReview].id}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5 }}
+              className="absolute w-full"
+            >
+              <div className="bg-navy-800 p-8 rounded-lg shadow-lg">
+                <p className="text-lg mb-4 text-cyan-100">{reviews[currentReview].content}</p>
+                <p className="font-semibold text-cyan-500">- {reviews[currentReview].name}</p>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );

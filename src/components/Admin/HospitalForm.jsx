@@ -5,6 +5,7 @@ const HospitalForm = ({ onAddHospital }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [location, setLocation] = useState('');
   const [services, setServices] = useState('inpatient');
+  const [hospitalType, setHospitalType] = useState('government'); // New state for Hospital Type
   const [bedsAvailable, setBedsAvailable] = useState('');
   const [totalDoctors, setTotalDoctors] = useState('');
   const [totalNurses, setTotalNurses] = useState('');
@@ -21,6 +22,7 @@ const HospitalForm = ({ onAddHospital }) => {
       phoneNumber,
       location,
       services,
+      hospitalType, // Include hospital type in the new hospital object
       bedsAvailable: Number(bedsAvailable),
       totalDoctors: Number(totalDoctors),
       totalNurses: Number(totalNurses),
@@ -35,6 +37,7 @@ const HospitalForm = ({ onAddHospital }) => {
     setPhoneNumber('');
     setLocation('');
     setServices('inpatient');
+    setHospitalType('government'); // Reset hospital type
     setBedsAvailable('');
     setTotalDoctors('');
     setTotalNurses('');
@@ -101,6 +104,19 @@ const HospitalForm = ({ onAddHospital }) => {
           <option value="radiology">Radiology</option>
           <option value="laboratory">Laboratory</option>
           <option value="gastroscopy">Gastroscopy</option>
+        </select>
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">Hospital Type</label>
+        <select
+          value={hospitalType}
+          onChange={(e) => setHospitalType(e.target.value)}
+          className="mt-1 p-3 border border-gray-300 rounded-lg w-full focus:ring-green-500 focus:border-green-500"
+        >
+          <option value="government">Government Hospital</option>
+          <option value="missionary">Missionary Hospital</option>
+          <option value="private">Private Hospital</option>
         </select>
       </div>
 
