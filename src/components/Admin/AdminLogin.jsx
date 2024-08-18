@@ -1,113 +1,175 @@
-import { useState } from 'react';
+import { UserPlusIcon } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
+import { useForm } from "react-hook-form";
 import { motion } from 'framer-motion';
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { apiLogin } from '../../services/auth';
+import { signUp } from '../../assets/images';
+import Loader from "../Loader";
+
 
 const AdminLogin = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+   
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-
+  const onSubmit = async (data) => {
+    console.log(data);
+    setIsSubmitting(true);
     try {
-      const response = await fetch('/api/v1/admin/token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
+      const res = await apiLogin({
+        userName: data.username,
+        password: data.password,
       });
+      // console.log("Full Response:", res.data);
 
-      if (!response.ok) {
-        throw new Error('Invalid credentials');
+      if (res && res.data){
+      localStorage.setItem("accessToken", res.data.accessToken);
+      
+      toast.success(res.data.message);
+      setTimeout(() => {
+        navigate("/admin/dashboard");
+      }, 3000);
+
+     } else {
+        throw new Error("No data found in the response");
       }
-
-      const data = await response.json();
-      localStorage.setItem('adminToken', data.token);
-      navigate('/admin/dashboard');
-    } catch (err) {
-      setError(err.message || 'An error occurred. Please try again.');
+    
+    } catch (error) {
+      console.log(error);
+      toast.error("An error occured!");
+    } finally {
+      setIsSubmitting(false);
     }
   };
+  
+//  
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 py-12 px-4 sm:px-6 lg:px-8">
+return (
+  <div className="min-h-screen bg-gradient-to-br from-gray-800 to-black flex items-center justify-center p-4">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-white rounded-2xl shadow-2xl flex flex-col md:flex-row w-full max-w-4xl overflow-hidden"
+    >
       <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-2xl"
+        className="w-full md:w-1/2 hidden md:block relative overflow-hidden"
+        initial={{ x: "-100%" }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
       >
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Admin Login
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Enter your credentials to access the admin dashboard
-          </p>
-        </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <input type="hidden" name="remember" defaultValue="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="username" className="sr-only">
-                Username
-              </label>
-              <input
-                id="username"
-                name="username"
-                type="text"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
-
-          {error && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-red-500 text-sm text-center"
-            >
-              {error}
-            </motion.p>
-          )}
-
-          <div>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
-            >
-              Sign in
-            </motion.button>
-          </div>
-        </form>
+        <motion.img
+          className="object-cover w-full h-full filter grayscale hover:grayscale-0 transition-all duration-500"
+          src={signUp}
+          alt="Signup"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.5 }}
+        />
       </motion.div>
-    </div>
-  );
+
+      <div className="w-full md:w-1/2 p-8 bg-gray-100">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="text-3xl font-bold text-gray-800 mb-2"
+        >
+          Welcome back! 🚀
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="text-gray-600 mb-6"
+        >
+          Enter your details to join our amazing community
+        </motion.p>
+
+        <motion.form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+        >
+          <div className="group">
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Username/Email
+            </label>
+            <input
+              type="text"
+              id="username"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform group-hover:scale-[1.02] bg-white"
+              placeholder="johndoe@example.com"
+              {...register("username", { required: "Username is required" })}
+            />
+            {errors.username && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.username.message}
+              </p>
+            )}
+          </div>
+
+          <div className="group">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform group-hover:scale-[1.02] bg-white"
+              placeholder="••••••••"
+              {...register("password", { required: "Password is required" })}
+            />
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            type="submit"
+            className="w-full bg-gradient-to-r from-gray-700 to-black text-white font-bold py-2 px-4 rounded-md hover:opacity-90 transition duration-300 flex items-center justify-center"
+          >
+            <span> {isSubmitting ? <Loader /> : "Sign In"}</span>
+            <UserPlusIcon className="ml-2 h-5 w-5" />
+          </motion.button>
+        </motion.form>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+          className="mt-6 text-sm text-gray-600 text-center"
+        >
+          Don&apos;t have an account?{" "}
+          <a
+            onClick={() => navigate("/Signup")}
+            className="text-gray-800 hover:text-gray-600 cursor-pointer hover:underline transition duration-300"
+          >
+            Sign Up
+          </a>
+        </motion.p>
+      </div>
+    </motion.div>
+  </div>
+);
 };
 
 export default AdminLogin;

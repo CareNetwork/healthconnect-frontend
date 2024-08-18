@@ -3,14 +3,60 @@ import { useState } from 'react';
 import { UserPenIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useEffect} from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import Loader from "../Loader"; // Adjust the path as needed
+import { apiCheckUsernameExists, apiSignUp } from '../../services/auth';
+import { debounce } from 'lodash';
 
 const AdminSignUp = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const [UserNameAvailable, setUserNameAvailable] = useState(false);
+    const [usernameNotAvailable, setUsernameNotAvailable] = useState(false);
+    const [isUsernameLoading, setIsUsernameLoading] = useState(false)
+
+    const checkUserName = async (userName) => {
+        setIsUsernameLoading(true)
+        try {
+            const res = await apiCheckUsernameExists(userName);
+            console.log(res.data);
+            const user = res.data.user
+            if (user) {
+                setUsernameNotAvailable(true);
+                setUserNameAvailable(false)
+            } else {
+                setUserNameAvailable(true);
+                setUsernameNotAvailable(false)
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("An error occured!");
+
+        } finally {
+            setIsUsernameLoading(false)
+        }
+    };
+
+    const userNameWatch = watch("username");
+
+    useEffect(() => {
+        const debouncedSearch = debounce(async () => {
+            if (userNameWatch) {
+                await checkUserName(userNameWatch)
+            }
+        }, 1000)
+
+        debouncedSearch()
+
+        return () => {
+            debouncedSearch.cancel();
+        }
+
+    }, [userNameWatch]);
+
 
     const onSubmit = async (data) => {
         console.log(data);
@@ -29,30 +75,23 @@ const AdminSignUp = () => {
         }
 
         try {
-            const response = await fetch('/api/v1/admin/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to sign up');
-            }
-
-            const resData = await response.json();
-            toast.success(resData.message || "Account created successfully!");
+            const res = await apiSignUp(payload);
+            console.log(res.data);
+            toast.success(res.data)
             setTimeout(() => {
-                navigate("/admin/login");
+                navigate("/admin/login")
             }, 3000);
+
         } catch (error) {
             console.log(error);
-            toast.error(error.response?.data?.message || "An error occurred!");
-        } finally {
+            toast.error("An error occured!");
+        }
+        finally {
             setIsSubmitting(false);
+
         }
     };
+    
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 py-12 px-4 sm:px-6 lg:px-8">
@@ -99,6 +138,15 @@ const AdminSignUp = () => {
                                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Username"
                             />
+                        </div>
+                        <div className="flex items-center">
+                            {isUsernameLoading && <Loader />}
+                            {
+                                UserNameAvailable && <p className="text-green-500">Username is available!</p>
+                            }
+                            {
+                                usernameNotAvailable && <p className="text-red-500">Username is already taken!</p>
+                            }
                         </div>
                         <div>
                             <label htmlFor="emailAddress" className="sr-only">Email Address</label>

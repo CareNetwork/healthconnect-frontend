@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+// eslint-disable-next-line react/prop-types
 const HospitalForm = ({ onAddHospital }) => {
   const [hospitalName, setHospitalName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');

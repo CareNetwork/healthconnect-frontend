@@ -4,7 +4,7 @@ import { signUp } from "../../assets/images";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
-// import { apiLogin } from "../../services/auth";
+import { apiLogin } from "../../services/auth";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
@@ -22,16 +22,16 @@ const Login = () => {
     console.log(data);
     setIsSubmitting(true);
     try {
-      const res = await ({
+      const res = await apiLogin({
         userName: data.username,
         password: data.password,
       });
-      console.log("Response:", res.data);
+      // console.log("Response:", res.data);
       localStorage.setItem("accessToken", res.data.accessToken);
       
       toast.success(res.data.message);
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/");
       }, 3000);
       // redirect user to dashboard
     } catch (error) {

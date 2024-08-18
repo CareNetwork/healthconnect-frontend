@@ -11,6 +11,7 @@ import nurse from '../images/nurse.jpg'
 import covid from '../images/covid.jpg'
 import nhis from '../images/nhis.png'
 import maternity from '../images/maternity.jpg'
+import vectorImg from '../images/vectorImg.jpg'
 
 
-export {signUp, landingBg, vidBg, vidBg1, vidBg2, vidBg3,vidBg4, heroBg, aboutBg, nurse, covid, nhis, maternity}
+export {signUp, landingBg, vidBg, vidBg1, vidBg2, vidBg3,vidBg4, heroBg, aboutBg, nurse, covid, nhis, maternity, vectorImg}

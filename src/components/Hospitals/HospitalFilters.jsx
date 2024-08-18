@@ -2,6 +2,7 @@
 const HospitalFilters = ({ filters = {}, setFilters }) => {
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
+    console.log('set filter', name)
     setFilters(prevFilters => ({
       ...prevFilters,
       [name]: value
@@ -15,8 +16,8 @@ const HospitalFilters = ({ filters = {}, setFilters }) => {
   return (
     <div className="flex flex-wrap gap-4 mb-6">
       <select
-        name="region"
-        value={filters.region || ''}
+        name="location"
+        value={filters.location || ''}
         onChange={handleFilterChange}
         className="border rounded px-3 py-2"
       >
@@ -27,8 +28,8 @@ const HospitalFilters = ({ filters = {}, setFilters }) => {
       </select>
 
       <select
-        name="specialty"
-        value={filters.specialty || ''}
+        name="services"
+        value={filters.services || ''}
         onChange={handleFilterChange}
         className="border rounded px-3 py-2"
       >
@@ -39,8 +40,8 @@ const HospitalFilters = ({ filters = {}, setFilters }) => {
       </select>
 
       <select
-        name="type"
-        value={filters.type || ''}
+        name="typeOfhospital"
+        value={filters.typeOfhospital || ''}
         onChange={handleFilterChange}
         className="border rounded px-3 py-2"
       >

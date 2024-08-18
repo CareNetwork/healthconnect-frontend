@@ -1,31 +1,44 @@
 import { useState, useEffect } from 'react';
-import { fetchHospitals } from '../services/hospitalService'; // Ensure the correct path to the service file
+
+import { apiClient } from '../services/config';
 
 const useHospitals = () => {
   const [hospitals, setHospitals] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filters, setFilters] = useState({
-    region: '',
-    specialty: '',
-    type: ''
+    location: '',
+    services: '',
+    typeOfhospital: ''
   });
 
   useEffect(() => {
-    const loadHospitals = async () => {
+    // console.log('hook ', filters)
+    const fetchHospitals = async () => {
       setLoading(true);
-      try {
-        const response = await fetchHospitals(filters);
-        setHospitals(response.data);
+      setError(null);
+
+      try {  
+        // const params = new URLSearchParams();
+        // if (filters.location) params.append('location', filters.location);
+        // if (filters.services) params.append('services', filters.services);
+        // if (filters.typeOfhospital) params.append('typeOfhospital', filters.typeOfhospital);
+
+        // const response = await apiClient.get(`/users/hospitals/getallhospitals?${params.toString()}`);
+        const response = await apiClient.get(`/users/hospitals/getallhospitals`);
+
+        const data= response.data
+      
+        setHospitals(Array.isArray(data) ? data : []);
       } catch (err) {
-        setError(err.message);
+        setError('Failed to fetch hospitals');
       } finally {
         setLoading(false);
       }
     };
 
-    loadHospitals();
-  }, [filters]);
+    fetchHospitals();
+  }, []);
 
   return { hospitals, loading, error, filters, setFilters };
 };
