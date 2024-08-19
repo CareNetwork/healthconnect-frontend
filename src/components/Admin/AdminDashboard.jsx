@@ -39,7 +39,7 @@ const AdminDashboard = () => {
       <aside
         className={`${
           isSidebarOpen ? "w-64" : "w-20"
-        } bg-gradient-to-b from-indigo-600 to-indigo-800 text-white transition-all duration-300 ease-in-out shadow-lg`}
+        } bg-gradient-to-b from-cyan-600 to-indigo-800 text-white transition-all duration-300 ease-in-out shadow-lg`}
       >
         <div className="p-4 flex items-center justify-between">
           <h2 className={`text-2xl font-bold ${isSidebarOpen ? "" : "hidden"}`}>
@@ -47,7 +47,7 @@ const AdminDashboard = () => {
           </h2>
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="p-2 bg-indigo-700 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="p-2 bg--700 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             {isSidebarOpen ? "<<" : ">>"}
           </button>
@@ -84,7 +84,7 @@ const AdminDashboard = () => {
 
       <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white shadow-inner">
         <header className="bg-white shadow-md p-6 flex items-center justify-between">
-          <h1 className="text-3xl font-semibold text-indigo-800">
+          <h1 className="text-3xl font-semibold text-cyan-800">
             Welcome, Admin!
           </h1>
         </header>

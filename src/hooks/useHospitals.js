@@ -13,7 +13,7 @@ const useHospitals = () => {
   });
 
   useEffect(() => {
-    // console.log('hook ', filters)
+    console.log('hook ', filters)
     const fetchHospitals = async () => {
       setLoading(true);
       setError(null);
@@ -38,7 +38,7 @@ const useHospitals = () => {
     };
 
     fetchHospitals();
-  }, []);
+  }, [filters]);
 
   return { hospitals, loading, error, filters, setFilters };
 };

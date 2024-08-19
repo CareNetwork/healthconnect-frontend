@@ -207,7 +207,7 @@ const HospitalForm = ({ onAddHospital }) => {
 
       <button
         type="submit"
-        className="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition duration-300"
+        className="w-full bg-cyan-600 text-white font-bold py-3 rounded-lg hover:bg-cyan-700 transition duration-300"
       >
         Add Hospital
       </button>

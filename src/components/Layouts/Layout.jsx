@@ -105,6 +105,9 @@ const Layout = () => {
               <p className="text-gray-400">
                 Connecting you to quality healthcare services.
               </p>
+              <p className="text-gray-400 pt-8">
+                Looking to have your Healthcare Center listed on our Website? Get in touch and let&apos;s bring accesible healthcare to all Ghanaians!
+              </p>
             </div>
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
