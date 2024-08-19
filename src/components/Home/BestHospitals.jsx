@@ -1,13 +1,13 @@
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
+import { korlebu,kathWard,hoth,tamale,capeCoast } from '../../assets/images';
 
 const mockHospitals = [
-  { id: 1, name: 'Korle-Bu Teaching Hospital', image: '/assets/images/korle-bu.jpg' },
-  { id: 2, name: 'Komfo Anokye Teaching Hospital', image: '/assets/images/komfo-anokye.jpg' },
-  { id: 3, name: 'Tamale Teaching Hospital', image: '/assets/images/tamale.jpg' },
-  { id: 4, name: 'Cape Coast Teaching Hospital', image: '/assets/images/cape-coast.jpg' },
-  { id: 5, name: 'Another Hospital', image: '/assets/images/another-hospital.jpg' },
-  { id: 6, name: 'Yet Another Hospital', image: '/assets/images/yet-another-hospital.jpg' },
+  { id: 1, name: 'Korle-Bu Teaching Hospital', image: korlebu },
+  { id: 2, name: 'Komfo Anokye Teaching Hospital', image: kathWard },
+  { id: 3, name: 'Tamale Teaching Hospital', image: tamale },
+  { id: 4, name: 'Cape Coast Teaching Hospital', image: capeCoast },
+  { id: 5, name: 'Ho Teaching Hospital', image: hoth },
 ];
 
 const BestHospitals = () => {

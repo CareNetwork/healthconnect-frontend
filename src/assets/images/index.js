@@ -12,6 +12,11 @@ import covid from '../images/covid.jpg'
 import nhis from '../images/nhis.png'
 import maternity from '../images/maternity.jpg'
 import vectorImg from '../images/vectorImg.jpg'
+import capeCoast from '../images/capeCoast.jpg'
+import hoth from '../images/hoth.jpg'
+import kathWard from '../images/kathWard.jpg'
+import korlebu from '../images/korlebu.jpg'
+import tamale from '../images/tamale.jpg'
 
 
-export {signUp, landingBg, vidBg, vidBg1, vidBg2, vidBg3,vidBg4, heroBg, aboutBg, nurse, covid, nhis, maternity, vectorImg}
+export {signUp, landingBg, vidBg, vidBg1, vidBg2, vidBg3,vidBg4, heroBg, aboutBg, nurse, covid, nhis, maternity, vectorImg, capeCoast, hoth,kathWard,tamale, korlebu}
